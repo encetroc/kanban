@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "kanban-a70fd": {
+      "hosting": {
+        "kanban": [
+          "kanban-a70fd"
+        ]
+      }
+    }
+  }
+}
