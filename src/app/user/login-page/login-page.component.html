@@ -4,6 +4,8 @@
         <button mat-raised-button appGoogleSignin>
             Google login
         </button>
+        <h5>or</h5>
+        <app-email-login></app-email-login>
     </div>
     <div *ngIf="afAuth.authState | async as user">
         <p> Logged in as <strong>{{user.email}}</strong> </p>

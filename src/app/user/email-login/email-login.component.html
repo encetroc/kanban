@@ -1,0 +1,69 @@
+<mat-card>
+    <div *ngIf="isSignup">
+        <h3>Create account</h3>
+        <button mat-stroked-button (click)="changeType('login')">
+            Returning user?
+        </button>
+    </div>
+    
+    <div *ngIf="isLogin">
+        <h3>Login</h3>
+        <button mat-stroked-button size="small" (click)="changeType('signup')">
+            New user?
+        </button>
+    </div>
+    
+    <div *ngIf="isPasswordReset">
+        <h3>Reset password</h3>
+        <button mat-stroked-button size="small" (click)="changeType('login')">
+            Back
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field [color]="email.valid && 'accent'">
+            <input
+                matInput
+                formControlName="email"
+                type="email"
+                placeholder="Email"
+                autocomplete="off"
+            />
+            <mat-error *ngIf="email.invalid">
+                You must enter a valid email
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field [color]="password.valid && 'accent'" *ngIf="!isPasswordReset">
+            <input
+                matInput
+                formControlName="password"
+                type="password"
+                placeholder="Password"
+                autocomplete="off"
+            />
+            <mat-error *ngIf="password.invalid && password.dirty">
+                Password must be at least 6 characters long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field [color]="passwordDoesMatch ? 'accent' : 'warn'" *ngIf="isSignup">
+            <input
+                matInput
+                formControlName="passwordConfirm"
+                type="password"
+                placeholder="Confirm password"
+                autocomplete="off"
+            />
+            <mat-error *ngIf="passwordConfirm.dirty && !passwordDoesMatch">
+                Passwords must match
+            </mat-error>
+        </mat-form-field>
+
+        <mat-error class="server-error">{{serverMessage}}</mat-error>
+
+        <button mat-raised-button *ngIf="!isPasswordReset" color="accent" type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">Submit</button>
+        <button mat-raised-button *ngIf="isPasswordReset" color="accent" type="submit" [disabled]="loading">Send reset email</button>
+    </form>
+</mat-card>
