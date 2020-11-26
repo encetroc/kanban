@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-      const user = await this.afAuth.currentUser;
+      const user = await this.afAuth.authState;
       const isLoggedIn = !!user
       if (!isLoggedIn) {
         this.snack.authError()
